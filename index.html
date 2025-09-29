@@ -1,0 +1,413 @@
+.
+<!DOCTYPE html>
+<html lang="en" >
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>IndiChip 360° – India’s Semiconductor Independence Ecosystem</title>
+  <meta name="description" content="IndiChip 360° is India’s pioneering ecosystem driving semiconductor independence through smart e-waste recovery, AI chip testing, and RISC-V innovation." />
+  <meta name="author" content="IndiChip Team" />
+  <link rel="icon" href="https://www.svgrepo.com/show/16218/microchip.svg" type="image/svg+xml" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Inter:400,700|Poppins:600&display=swap" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    body {
+      font-family: 'Inter', 'Poppins', sans-serif;
+      scroll-behavior: smooth;
+      background: linear-gradient(135deg, #0f172a 0%, #14b8a6 50%, #001219 100%);
+      color: #ffffff;
+      min-height: 100vh;
+    }
+    .circuit-bg {
+      background: url('https://www.svgrepo.com/show/183368/circuit-board.svg');
+      background-size: cover;
+      background-repeat: no-repeat;
+      opacity: 0.10;
+      pointer-events: none;
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+
+    /* Glow pulse animation */
+    @keyframes glowPulse {
+      0%, 100% {
+        text-shadow:
+          0 0 8px #14b8a6,
+          0 0 15px #0ee6b7,
+          0 0 20px #14b8a6,
+          0 0 30px #0ef9c0;
+        color: #0ef9c0;
+      }
+      50% {
+        text-shadow:
+          0 0 12px #14b8a6,
+          0 0 20px #0ef9c0,
+          0 0 40px #0ce1ae,
+          0 0 70px #0adbb3;
+        color: #14fadc;
+      }
+    }
+    .glow-text {
+      animation: glowPulse 2.5s ease-in-out infinite;
+    }
+
+    /* Fade-scale entrance */
+    @keyframes fadeScaleIn {
+      0% {
+        opacity: 0;
+        transform: scale(0.95);
+      }
+      100% {
+        opacity: 1;
+        transform: scale(1);
+      }
+    }
+    .fade-scale-in {
+      animation: fadeScaleIn 0.8s ease forwards;
+    }
+
+    /* Flip card styles */
+    .flip-card {
+      perspective: 1000px;
+    }
+    .flip-inner {
+      transition: transform 0.7s cubic-bezier(0.4, 0, 0.2, 1);
+      transform-style: preserve-3d;
+      cursor: pointer;
+      position: relative;
+      height: 100%;
+      outline: none;
+    }
+    .flip-inner.is-flipped {
+      transform: rotateY(180deg);
+    }
+    .flip-front, .flip-back {
+      backface-visibility: hidden;
+      position: absolute;
+      top: 0; left: 0; width: 100%; height: 100%;
+      border-radius: 1rem;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.8);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      padding: 1.5rem;
+    }
+    .flip-front {
+      background: rgba(15, 23, 42, 0.85);
+    }
+    .flip-back {
+      background: #0ee6b7;
+      color: #000000;
+      transform: rotateY(180deg);
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* Navigation menu */
+    .nav-link {
+      color: white;
+      font-weight: 600;
+      transition: color 0.3s ease;
+    }
+    .nav-link:hover,
+    .nav-link:focus {
+      color: #0ee6b7;
+      outline: none;
+    }
+    button#menu-btn {
+      display: none;
+      background: none;
+      border: none;
+      outline: none;
+      cursor: pointer;
+    }
+    @media (max-width: 768px) {
+      nav div.menu-items {
+        display: none;
+        position: absolute;
+        top: 100%;
+        right: 0;
+        background-color: rgba(0,0,0,0.85);
+        width: 60vw;
+        border-radius: 0 0 0.5rem 0.5rem;
+        padding: 1rem;
+      }
+      nav div.menu-items.show {
+        display: block;
+      }
+      button#menu-btn {
+        display: block;
+        color: white;
+      }
+    }
+
+    /* Scroll reveal classes */
+    .hidden-section {
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s ease-out;
+    }
+    .hidden-section.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* Focus outline for accessibility */
+    button:focus, a:focus, .flip-inner:focus {
+      outline: 3px solid #0ee6b7;
+      outline-offset: 3px;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navigation -->
+  <nav class="sticky top-0 bg-black bg-opacity-80 backdrop-blur-md z-30 shadow-md py-4" role="navigation" aria-label="Primary">
+    <div class="max-w-7xl mx-auto flex justify-between items-center px-6">
+      <a href="#hero" class="text-2xl font-bold text-teal-300" aria-label="IndiChip 360 home">IndiChip 360°</a>
+      <button id="menu-btn" aria-controls="primary-menu" aria-expanded="false" aria-label="Toggle navigation menu" aria-haspopup="true">
+        &#9776;
+      </button>
+      <div class="menu-items flex space-x-8 text-lg font-semibold" id="primary-menu">
+        <a href="#problem" class="nav-link" tabindex="0">Problem</a>
+        <a href="#vision" class="nav-link" tabindex="0">Vision</a>
+        <a href="#prototype" class="nav-link" tabindex="0">Prototype</a>
+        <a href="#impact" class="nav-link" tabindex="0">Impact</a>
+        <a href="#team" class="nav-link" tabindex="0">Team</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero Section -->
+  <section id="hero" class="relative flex flex-col justify-center items-center text-center h-screen px-4" tabindex="-1" aria-label="Hero section introducing IndiChip 360 project">
+    <div class="circuit-bg"></div>
+    <h1 class="text-6xl md:text-7xl font-extrabold glow-text fade-scale-in max-w-4xl leading-tight z-10 drop-shadow-lg">IndiChip 360°</h1>
+    <p class="mt-6 text-xl md:text-2xl text-teal-300 z-10 font-semibold tracking-wide max-w-xl">
+      Empowering India’s semiconductor independence—from innovative e-waste recovery to advanced chip design.
+    </p>
+    <a href="#prototype" role="button" class="mt-8 px-8 py-4 bg-blue-600 text-white rounded-full text-xl font-semibold hover:bg-teal-600 shadow-lg hover:shadow-teal-400 focus:outline-none focus:ring-4 focus:ring-teal-400 glow-text fade-scale-in transition-transform transform hover:scale-105">
+      Explore Our Prototype
+    </a>
+  </section>
+
+  <!-- Problem Section -->
+  <section id="problem" class="py-16 px-6 md:px-12 bg-white bg-opacity-10 rounded-xl max-w-5xl mx-auto my-12 hidden-section" tabindex="0" aria-label="Industry dependency and e-waste problem in India">
+    <h2 class="text-4xl text-teal-300 font-semibold mb-12 text-center glow-text">The Challenge</h2>
+    <div class="flex flex-col md:flex-row gap-12 justify-center">
+      <div class="flex-1 bg-blue-950 rounded-xl p-8 flex flex-col items-center shadow-lg transition-shadow hover:shadow-teal-400 cursor-default" aria-describedby="semiconductor-info" role="region">
+        <img src="https://www.svgrepo.com/show/16218/microchip.svg" class="w-16 mb-6" alt="Microchip Icon" />
+        <h3 class="text-2xl text-white font-bold mb-3" id="semiconductor-info">Dependence on Imported Semiconductors</h3>
+        <p class="text-teal-200 text-lg mb-4 text-center">
+          90% of India's semiconductor demand currently depends on imports, constraining innovation, security, and economic growth.
+        </p>
+        <div class="text-5xl font-bold text-teal-400 counter" data-target="90" aria-label="90 percent dependency">0</div>
+        <p class="text-teal-300 font-semibold text-xl mt-2">90% Imports</p>
+      </div>
+      <div class="flex-1 bg-blue-950 rounded-xl p-8 flex flex-col items-center shadow-lg transition-shadow hover:shadow-teal-400 cursor-default" aria-describedby="ewaste-info" role="region">
+        <img src="https://www.svgrepo.com/show/436771/ewaste.svg" class="w-16 mb-6" alt="E-waste Icon" />
+        <h3 class="text-2xl text-white font-bold mb-3" id="ewaste-info">Escalating E-Waste Crisis</h3>
+        <p class="text-teal-200 text-lg mb-4 text-center">
+          India generates over 3.2 million tonnes of electronic waste annually, posing significant environmental and resource challenges.
+        </p>
+        <div class="text-5xl font-bold text-teal-400 counter" data-target="3200000" aria-label="3.2 million tonnes e-waste">0</div>
+        <p class="text-teal-300 font-semibold text-xl mt-2">3.2M Tonnes</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Vision Section -->
+  <section id="vision" class="py-16 px-6 md:px-12 max-w-5xl mx-auto hidden-section" tabindex="0" aria-label="Vision of IndiChip 360° ecosystem">
+    <h2 class="text-4xl text-teal-300 font-semibold mb-12 text-center glow-text">Our Vision</h2>
+    <div class="flex justify-center mb-12" aria-hidden="true">
+      <!-- 3-part Circular SVG -->
+      <svg width="140" height="140" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" class="drop-shadow-lg">
+        <circle cx="60" cy="60" r="50" fill="#0f172a"/>
+        <path d="M60 20 A40 40 0 0 1 106 60" stroke="#14b8a6" stroke-width="8"/>
+        <path d="M106 60 A40 40 0 0 1 60 100" stroke="#38bdf8" stroke-width="8"/>
+        <path d="M60 100 A40 40 0 0 1 60 20" stroke="#fff" stroke-width="8"/>
+      </svg>
+    </div>
+    <div class="flex flex-col md:flex-row gap-10 justify-center" role="list">
+      <article class="flex-1 bg-black bg-opacity-70 rounded-xl p-8 shadow-lg hover:shadow-teal-500 cursor-default transition" role="listitem" tabindex="0" aria-label="Smart E-Waste Recovery description">
+        <h3 class="text-2xl text-white font-bold mb-3">Smart E-Waste Recovery</h3>
+        <p class="text-teal-200 text-lg">Leveraging innovative technologies to extract valuable components from electronic waste, promoting circular economy and resource sustainability.</p>
+      </article>
+      <article class="flex-1 bg-black bg-opacity-70 rounded-xl p-8 shadow-lg hover:shadow-teal-500 cursor-default transition" role="listitem" tabindex="0" aria-label="AI-Powered Chip Testing description">
+        <h3 class="text-2xl text-white font-bold mb-3">AI-Powered Chip Testing</h3>
+        <p class="text-teal-200 text-lg">Using advanced machine learning models to automate fast, reliable quality assessments, accelerating semiconductor testing cycles.</p>
+      </article>
+      <article class="flex-1 bg-black bg-opacity-70 rounded-xl p-8 shadow-lg hover:shadow-teal-500 cursor-default transition" role="listitem" tabindex="0" aria-label="RISC-V Domain-Specific Chips description">
+        <h3 class="text-2xl text-white font-bold mb-3">RISC-V Domain-Specific Chips</h3>
+        <p class="text-teal-200 text-lg">Designing open-source, customizable RISC-V processors tailored to India’s industrial and technological needs for greater autonomy.</p>
+      </article>
+    </div>
+  </section>
+
+  <!-- Prototype Section -->
+  <section id="prototype" class="py-16 px-6 md:px-12 max-w-6xl mx-auto hidden-section" tabindex="0" aria-label="Project prototypes demo">
+    <h2 class="text-4xl text-teal-300 font-semibold mb-12 text-center glow-text">Prototypes</h2>
+    <div class="flex flex-col md:flex-row gap-12 justify-center">
+      <article class="flex-1 bg-white bg-opacity-10 rounded-xl p-8 shadow-lg hover:shadow-teal-400 cursor-pointer transition-transform transform hover:-translate-y-1" tabindex="0" aria-label="E-Waste Recovery AI model description">
+        <h3 class="text-2xl text-white font-bold mb-3">E-Waste Recovery AI Model</h3>
+        <p class="text-teal-200 text-lg mb-4">A deep learning system trained to classify and extract reusable electronic components with high accuracy, reducing waste and sourcing materials locally.</p>
+        <img src="https://www.svgrepo.com/show/51789/brain-circuit.svg" alt="AI Model" class="w-24 mx-auto opacity-80" />
+      </article>
+      <article class="flex-1 bg-white bg-opacity-10 rounded-xl p-8 shadow-lg hover:shadow-teal-400 cursor-pointer transition-transform transform hover:-translate-y-1" tabindex="0" aria-label="AI Chip Testing Web UI description">
+        <h3 class="text-2xl text-white font-bold mb-3">AI Chip Testing Web UI</h3>
+        <p class="text-teal-200 text-lg mb-4">An intuitive, web-based interface visualizing chip diagnostics and automating testing workflows to empower engineers and researchers.</p>
+        <img src="https://www.svgrepo.com/show/52061/monitor.svg" alt="Web UI" class="w-24 mx-auto opacity-80" />
+      </article>
+      <article class="flex-1 bg-white bg-opacity-10 rounded-xl p-8 shadow-lg hover:shadow-teal-400 cursor-pointer transition-transform transform hover:-translate-y-1" tabindex="0" aria-label="RISC-V FPGA Demo description">
+        <h3 class="text-2xl text-white font-bold mb-3">RISC-V FPGA Demo</h3>
+        <p class="text-teal-200 text-lg mb-4">A working demonstration of RISC-V FPGA implementation tailored to India’s application domains, showcasing flexibility and power efficiency.</p>
+        <img src="https://www.svgrepo.com/show/16218/microchip.svg" alt="FPGA" class="w-24 mx-auto opacity-80" />
+      </article>
+    </div>
+  </section>
+
+  <!-- Impact Section -->
+  <section id="impact" class="py-16 px-6 md:px-12 max-w-5xl mx-auto hidden-section" tabindex="0" aria-label="Impact of IndiChip 360°">
+    <h2 class="text-4xl text-teal-300 font-semibold mb-12 text-center glow-text">Our Impact</h2>
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+      <div class="bg-blue-950 rounded-xl p-8 flex flex-col items-center shadow-lg hover:shadow-teal-400 cursor-default transition" role="region" aria-label="Economic Impact">
+        <img src="https://www.svgrepo.com/show/169659/coins.svg" alt="Economic Icon" class="w-14 mb-4" />
+        <h3 class="text-2xl text-white font-bold mb-3">Economic Growth</h3>
+        <p class="text-teal-200 text-lg text-center">Driving economic self-reliance by reducing imports, fostering recycling industries, and creating new business opportunities in semiconductor manufacturing.</p>
+      </div>
+      <div class="bg-blue-950 rounded-xl p-8 flex flex-col items-center shadow-lg hover:shadow-teal-400 cursor-default transition" role="region" aria-label="Educational Impact">
+        <img src="https://www.svgrepo.com/show/455456/graduation-cap-education.svg" alt="Educational Icon" class="w-14 mb-4" />
+        <h3 class="text-2xl text-white font-bold mb-3">Education & Innovation</h3>
+        <p class="text-teal-200 text-lg text-center">Providing accessible, affordable chip design and testing tools to empower engineering students and research communities.</p>
+      </div>
+      <div class="bg-blue-950 rounded-xl p-8 flex flex-col items-center shadow-lg hover:shadow-teal-400 cursor-default transition" role="region" aria-label="Strategic Impact">
+        <img src="https://www.svgrepo.com/show/15398/shield.svg" alt="Strategic Icon" class="w-14 mb-4" />
+        <h3 class="text-2xl text-white font-bold mb-3">Strategic Independence</h3>
+        <p class="text-teal-200 text-lg text-center">Contributing to India’s Atmanirbhar Bharat vision by securing the supply chain and advancing trusted domestic technologies.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Team Section -->
+  <section id="team" class="py-16 px-6 md:px-12 max-w-5xl mx-auto hidden-section" tabindex="0" aria-label="IndiChip 360° team members">
+    <h2 class="text-4xl text-teal-300 font-semibold mb-12 text-center glow-text">Meet the Team</h2>
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-12" role="list">
+       
+      <div class="flip-card" role="listitem">
+        <div class="flip-inner rounded-xl p-6 h-full" tabindex="0" aria-label="AI Engineer details">
+          <div class="flip-front flex flex-col items-center justify-center h-full space-y-4 text-white">
+            <img src="https://www.svgrepo.com/show/382103/ai-artificial-intelligence-brain.svg" alt="AI Engineer" class="w-20 mx-auto" />
+            <h3 class="text-2xl font-bold">AI Engineer</h3>
+          </div>
+          <div class="flip-back">
+            <p>Developing state-of-the-art AI models for automated chip testing and classification, driving cutting-edge semiconductor quality control.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" role="listitem">
+        <div class="flip-inner rounded-xl p-6 h-full" tabindex="0" aria-label="Hardware Engineer details">
+          <div class="flip-front flex flex-col items-center justify-center h-full space-y-4 text-white">
+            <img src="https://www.svgrepo.com/show/113806/engineering.svg" alt="Hardware Engineer" class="w-20 mx-auto" />
+            <h3 class="text-2xl font-bold">Hardware Engineer</h3>
+          </div>
+          <div class="flip-back">
+            <p>Specializing in cutting-edge electronic design and validation of RISC-V chips and FPGA architectures to meet India’s unique technological requirements.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" role="listitem">
+        <div class="flip-inner rounded-xl p-6 h-full" tabindex="0" aria-label="Software Developer details">
+          <div class="flip-front flex flex-col items-center justify-center h-full space-y-4 text-white">
+            <img src="https://www.svgrepo.com/show/39796/web.svg" alt="Software Developer" class="w-20 mx-auto" />
+            <h3 class="text-2xl font-bold">Software Developer</h3>
+          </div>
+          <div class="flip-back">
+            <p>Creating seamless web interfaces and tools to visualize chip testing data and streamline development processes for the team.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="flip-card" role="listitem">
+        <div class="flip-inner rounded-xl p-6 h-full" tabindex="0" aria-label="Designer details">
+          <div class="flip-front flex flex-col items-center justify-center h-full space-y-4 text-white">
+            <img src="https://www.svgrepo.com/show/490936/pencil-ruler.svg" alt="Designer" class="w-20 mx-auto" />
+            <h3 class="text-2xl font-bold">Designer</h3>
+          </div>
+          <div class="flip-back">
+            <p>Crafting the visual identity and user experience, ensuring IndiChip 360° delivers an intuitive and inspiring digital presence.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="py-8 bg-black bg-opacity-90 text-center text-white mt-20" role="contentinfo">
+    <p class="mb-3 text-lg max-w-xl mx-auto">We’re not just designing a chip – we’re designing India’s semiconductor sovereignty for a resilient future.</p>
+    <nav class="mt-4 flex justify-center gap-8" aria-label="Footer social and contact links">
+      <a href="https://github.com/" target="_blank" class="text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500">GitHub</a>
+      <a href="https://linkedin.com/" target="_blank" class="text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500">LinkedIn</a>
+      <a href="mailto:example@indichip360.com" class="text-blue-400 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500">Contact Email</a>
+    </nav>
+  </footer>
+
+  <script>
+    // Mobile menu toggle
+    const menuBtn = document.getElementById('menu-btn');
+    const menuItems = document.querySelector('div.menu-items');
+
+    menuBtn.addEventListener('click', () => {
+      const expanded = menuBtn.getAttribute('aria-expanded') === 'true' || false;
+      menuBtn.setAttribute('aria-expanded', !expanded);
+      menuItems.classList.toggle('show');
+    });
+
+    // Counter animation
+    const counters = document.querySelectorAll('.counter');
+    counters.forEach(counter => {
+      const updateCount = () => {
+        const target = +counter.getAttribute('data-target');
+        let count = +counter.innerText.replace(/,/g, '');
+        const increment = target / 200;
+        if (count < target) {
+          counter.innerText = Math.ceil(count + increment).toLocaleString();
+          setTimeout(updateCount, 12);
+        } else {
+          counter.innerText = target.toLocaleString();
+        }
+      };
+      updateCount();
+    });
+
+    // Flip card interaction
+    document.querySelectorAll('.flip-inner').forEach(card => {
+      card.addEventListener('click', () => {
+        card.classList.toggle('is-flipped');
+      });
+      card.addEventListener('keypress', e => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.classList.toggle('is-flipped');
+        }
+      });
+    });
+
+    // Scroll reveal animation
+    const sections = document.querySelectorAll('.hidden-section');
+    const revealOnScroll = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          revealOnScroll.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.15 });
+
+    sections.forEach(section => revealOnScroll.observe(section));
+  </script>
+</body>
+</html>
